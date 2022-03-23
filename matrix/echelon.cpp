@@ -98,14 +98,12 @@ int main(){
 
     float A[250][250];
     float A_clone[250][250];
-
     int row, column;
 
     input_arr (A, row, column);
-
     print_arr (A, row, column);
+    
     cout << endl;
-
     cout << "\nechelon matrix:\n";
 
     transfer_data (A, A_clone, row, column);
