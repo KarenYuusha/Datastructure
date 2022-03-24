@@ -20,6 +20,7 @@ void PrintList (List l)
         cout << l.head -> info << "\t";
         l.head = l.head->next;
     }
+    
     cout << endl;
 }
 
@@ -32,6 +33,7 @@ void CreateEmptyList (List& l)
 Node* CreateNode (int x)
 {
     Node* a = new Node;
+
     if (a == NULL)
         exit (1);
 
@@ -48,6 +50,7 @@ void AddHead (List& l, Node *a)
         l.head = a;
         l.tail = l.head;
     }
+
     else
     {
         a->next = l.head;
@@ -62,6 +65,7 @@ void AddTail (List& l, Node *a)
         l.head = a;
         l.tail = a;
     }
+
     else
     {
         l.tail->next = a;
@@ -75,6 +79,7 @@ void CreateNNode (List &l, int &n)
     cout << "nhap n: ";
     cin >> n;
     int val;
+
     for (int i = 1; i <= n; i++)
     {
         cin >> val;
@@ -86,11 +91,13 @@ void AddNodeAfterQ (List& l, Node* q, Node* p)
 {
     if (q == l.tail)
         AddTail (l, p);
+
     else if (q != NULL)
     {
         p->next = q->next;
         q->next = p;
     }
+
     else
         AddHead (l, p);
 }
@@ -99,17 +106,68 @@ void AddNodeBeforeQ (List& l, Node* q, Node* p)
 {
     if (q == l.head)
         AddHead (l, p);
+
     else if (q != NULL)
     {
         Node* tmp = l.head;
+
         for (; tmp != NULL; tmp = tmp->next)
             if (tmp->next == q)
                 break;
+
         tmp->next = p;
         p->next = q;
     }
+
     else
         AddTail (l, p);
+}
+
+void RemoveHead (List& l)
+{
+    if (l.head == NULL)
+        return;
+
+    Node* tmp = l.head;
+    l.head = l.head->next;
+    delete tmp;
+}
+
+void RemoveAfterQ (List& l, Node* q)
+{
+    if (q != NULL)
+    {
+        Node* tmp = q->next;
+        q->next = tmp->next;
+
+        if (tmp == l.tail)
+            l.tail = q;
+
+        delete (tmp);
+    }
+}
+
+bool RemoveX (List& l, int x)
+{
+    Node* slow = NULL;
+    Node* fast = l.head;
+
+    while (fast != NULL && fast->info != x)
+    {
+        slow = fast;
+        fast = fast->next;
+    }
+
+    if (fast == NULL) // x not found
+        return 0;
+
+    if (slow != NULL)
+        RemoveAfterQ (l, slow);
+
+    else
+        RemoveHead (l);
+
+    return 1;
 }
 
 int main(){
