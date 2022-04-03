@@ -170,106 +170,22 @@ bool RemoveX (List& l, int x)
     return 1;
 }
 
-// swapping 2 nodes without changing value
-void swap (List l, int n1, int n2)
-{
-    Node* prev_node1 = NULL, *prev_node2 = NULL;
-    Node* node1 = l.head, *node2 = l.head;
-
-    if (l.head == NULL)
-        return;
-
-    //search for node 1
-    while (node1 != NULL && node1->data != n1)
-    {
-        prev_node1 = node1;
-        node1 = node1->next;
-    }
-
-    //search for node 2
-    while (node2 != NULL && node2->data != n2)
-    {
-        prev_node2 = node2;
-        node2 = node2->next;
-    }
-
-    //swap prev node
-    if (node1 != NULL && node2 != NULL)
-    {
-        if (prev_node1 != NULL)
-            prev_node1->next = node2;
-        else
-            l.head = node2;
-
-        if (prev_node2 != NULL)
-            prev_node2->next = node1;
-        else
-            l.head = node1;
-    }
-
-    //swap next node
-    Node* tmp = node1->next;
-    node1->next = node2->next;
-    node2->next = tmp;
-}
-
-void swapNodes(List l, int x, int y)
-{
-    // Nothing to do if x and y are same
-    if (x == y)
-        return;
- 
-    // Search for x (keep track of prevX and CurrX
-    Node *prevX = NULL, *currX = l.head;
-    while (currX && currX->data != x) {
-        prevX = currX;
-        currX = currX->next;
-    }
- 
-    // Search for y (keep track of prevY and CurrY
-    Node *prevY = NULL, *currY = l.head;
-    while (currY && currY->data != y) {
-        prevY = currY;
-        currY = currY->next;
-    }
- 
-    // If either x or y is not present, nothing to do
-    if (currX == NULL || currY == NULL)
-        return;
- 
-    // If x is not head of linked list
-    if (prevX != NULL)
-        prevX->next = currY;
-    else // Else make y as new head
-        l.head = currY;
- 
-    // If y is not head of linked list
-    if (prevY != NULL)
-        prevY->next = currX;
-    else // Else make x as new head
-        l.head = currX;
- 
-    // Swap next pointers
-    Node* temp = currY->next;
-    currY->next = currX->next;
-    currX->next = temp;
-}
-
-void BubbleSort (List& l) //ascending
+//ascending
+void BubbleSort (List& l) 
 {
     int min = l.head->data;
     for (Node* i = l.head; i != NULL; i = i->next)
         for (Node* j = i->next; j != NULL; j = j->next)
             if (j->data < i->data)
             {
-                swapNodes (l, j->data, i->data);
+                swap (j->data, i->data);
             }
                 
 }
 
 int main(){
 
-    
+
 
     return 0;
 }
